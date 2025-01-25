@@ -9,8 +9,10 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+
+app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
+app.use(express.json());
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI);
@@ -89,7 +91,7 @@ app.post('/register', async (req, res) => {
       } catch (err) {
         console.error('Error while deleting unverified user:', err);
       }
-    }, 60 * 1000); // Delete unverified users after 60 seconds
+    }, 180 * 1000); // Delete unverified users after 60 seconds
 
     res.status(201).json({ message: 'User registered, check email for OTP' });
   } catch (error) {
