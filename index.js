@@ -204,9 +204,8 @@ app.post('/login', async (req, res) => {
             SECRET_KEY,
             { expiresIn: process.env.JWT_EXPIRATION } // Token expires in 1 hour
         );
-        console.log(token);
 
-        res.json({ message: 'Login successful', token });
+        res.json({ message: 'Login successful', token, userId: user.userId });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
