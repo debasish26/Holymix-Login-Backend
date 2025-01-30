@@ -41,7 +41,7 @@ const transporter = nodemailer.createTransport({
 
 
 const userSchema = new mongoose.Schema({
-    userId: { type: String, required: true, unique: true, default: () => uuidv4() },
+    userId: { type: String, unique: true }, // Ensure userId is defined as a String
     firstName: String,
     lastName: String,
     email: { type: String, unique: true },
@@ -57,7 +57,6 @@ const userSchema = new mongoose.Schema({
             number: Number,
             title: String,
             image: String,
-
             watchedAt: { type: Date, default: Date.now }
         }
     ],
@@ -70,6 +69,7 @@ const userSchema = new mongoose.Schema({
     ],
     completedAnime: [String],
 });
+
 
 
 const User = mongoose.model('User', userSchema);
@@ -95,7 +95,7 @@ app.post('/register', async (req, res) => {
         const otpExpires = new Date(Date.now() + 180 * 1000); // OTP expires in 30 seconds
 
         const newUser = new User({
-            userId: new mongoose.Types.ObjectId().toString(),
+            userId: uuidv4(),
             firstName,
             lastName,
             email,
@@ -216,7 +216,13 @@ app.post('/update-watch-history', async (req, res) => {
 
 
     const { userId, id, episodeId, title, image, number } = req.body;
-
+    console.log(userId)
+    console.log(id)
+    console.log(episodeId)
+    console.log(title)
+    console.log(image)
+    console.log(number)
+    console.log("Received userId:", userId, "Type:", typeof userId);
 
 
     if (!userId || !id || !episodeId || !title || !image || !number) {
@@ -224,8 +230,9 @@ app.post('/update-watch-history', async (req, res) => {
     }
 
     try {
-        const user = await User.findOne({userId});
+        const user = await User.findOne({ userId: userId }); // No need to convert userId
 
+        console.log("userinside update:",user);
 
 
         if (!user) {
