@@ -111,10 +111,25 @@ app.post('/register', async (req, res) => {
 
         // Send OTP email asynchronously
         await transporter.sendMail({
-            from: 'Holymix devasish024h@gmail.com',
+            from: ' "Holymix" <devasish024h@gmail.com>',
             to: email,
-            subject: 'Verify Your Email',
-            text: `Your OTP is: ${otp}`,
+            subject: "✨ Verify Your Email - Holymix🎌",
+            html: `
+            <div style="font-family: Arial, sans-serif; background: #0f172a; color: #fff; padding: 20px; border-radius: 10px; text-align: center;">
+                <img src="https://i.ibb.co/Q7V4Dr3w/HOLLY.png" alt="Holymix Anime" style="width: 200px; margin-bottom: 20px;">
+                <h1 style="color: #CC0000;">🌟 Welcome to Holymix Anime Streaming Site! 🌟</h1>
+                <p style="font-size: 18px;">You're one step away from unlocking unlimited anime adventures! 🎬🍿</p>
+                <p style="font-size: 22px; font-weight: bold; color: #facc15;">Your One-Time Password (OTP):</p>
+                <div style="background: #1e293b; padding: 10px; border-radius: 8px; display: inline-block;">
+                    <span style="font-size: 28px; font-weight: bold; letter-spacing: 5px; color: #CC0000;">${otp}</span>
+                </div>
+                <p style="font-size: 16px; margin-top: 20px;">This OTP is valid for <strong>3 minutes</strong>. Please do not share it with anyone! 🚀</p>
+                <p>If you didn't request this, you can safely ignore this email. 🛡️</p>
+                <hr style="border: 1px solid #374151; margin: 20px;">
+                <p style="font-size: 14px; color: #9ca3af;">💌 Need help? Contact us at <a href="mailto:devasish024h@gmail.com" style="color: #facc15; text-decoration: none;">support@holymixanime.com</a></p>
+                <p style="font-size: 14px; color: #9ca3af;">© 2025 Holymix Anime. All rights reserved.</p>
+            </div>
+        `,
         });
 
         // Delete unverified users after 3 minutes
