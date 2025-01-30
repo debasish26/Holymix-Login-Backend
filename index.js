@@ -92,7 +92,7 @@ app.post('/register', async (req, res) => {
 
         // Generate OTP **before** using it
         const otp = generateOTP();
-        const otpExpires = new Date(Date.now() + 30 * 1000); // OTP expires in 30 seconds
+        const otpExpires = new Date(Date.now() + 180 * 1000); // OTP expires in 30 seconds
 
         const newUser = new User({
             userId: new mongoose.Types.ObjectId().toString(),
